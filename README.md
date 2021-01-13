@@ -2,46 +2,32 @@
 
 ## Transaction Logging Service
 
+The Transaction Logging Service is a component of GIVE that provides logging for Verification Events.
+
 ## Pre-requisites
-- [AWS SAM](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html)
-- [Docker](https://www.docker.com/products/docker-desktop)
-- [Chalice Template](https://github.com/folksgl/chalice-cicd-app)
+- [Python 3.9](https://www.python.org/)
+- [CloudFoundry CLI](https://docs.cloudfoundry.org/cf-cli/)
 
-## Building with the CI/CD Pipeline
-Building with the CI/CD pipeline can be done as follows:
-```sh
-cd pipeline/
-cdk deploy --ConnectionSecretId=<my-connection-id>
+## Building Locally
+
+Run this script to download the code and set up the development environment with python virtual env. The pre-commit hook provides code formatting using [black](https://black.readthedocs.io/en/stable/)
+
 ```
-where `ConnectionSecretId` is the SecretsManager secret containing the CodeStar connection ARN for the repository defined in `pipeline/app.py`. Note -- the JsonKey for the secret must be 'arn'.
+git clone https://github.com/18F/identity-give-transaction-logging
+cd identity-give-transaction-logging
+python3 -m venv venv
+source venv/bin/activate
+python3 -m pip install -r requirements.txt
+pre-commit install
+```
 
-## Build/Local Deploy
+Run the application with:
 
-First set up a local environment, see the Chalice Template in the Pre-reqs.
-
-Then switch to the app with `cd app`.
-
-Finally, launch the local server with `chalice local`.
-
-*Note: any endpoints with database operations will not function locally.
-
+```
+cd transaction_logging
+python manage.py runserver
+```
 
 ### Available Endpoints
 
-`/`
-
-`/item`
-
-
-## Example POST Request
-
-Use the deployed aws endpoint for making requests to endpoints that utilize the database.
-
-```
-
-{
-    "id" : "this is the ID",
-    "text" : "text for item"
-}
-
-```
+`/transaction`
