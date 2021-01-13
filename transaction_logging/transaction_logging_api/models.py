@@ -22,7 +22,7 @@ class TransactionRecord(models.Model):
 
     customer = models.CharField(max_length=60)
     csp = models.CharField(max_length=60)
-    cost = models.DecimalField()
+    cost = models.DecimalField(decimal_places=3, max_digits=8)
     result = models.CharField(max_length=60)
 
     record_uuid = models.UUIDField(primary_key=True)
@@ -31,11 +31,6 @@ class TransactionRecord(models.Model):
 
     class Meta:
         ordering = ["creation_date"]
-
-    @property
-    def status(self):
-        """ Allow 'get' of the objects 'record_status' field """
-        return self.record_status
 
     @property
     def uuid(self):
