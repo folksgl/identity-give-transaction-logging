@@ -29,7 +29,7 @@ STATICFILES_DIRS = (os.path.join(PROJECT_DIR, "static"),)
 SECRET_KEY = os.environ["SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# Default to True if set
+# DEBUG set is set to True if env var is "True"
 DEBUG = os.environ.get("DEBUG", "False") == "True"
 
 ALLOWED_HOSTS = ["*"]
