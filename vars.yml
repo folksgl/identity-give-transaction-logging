@@ -1,0 +1,5 @@
+environment: dev
+instances: 1
+memory: 512M
+DJANGO_DEBUG: False
+DJANGO_SECRET_KEY: secret

@@ -1,3 +1,5 @@
 .idea
 .venv
 __pycache__
+static/
+/transaction_logging/db.sqlite3
