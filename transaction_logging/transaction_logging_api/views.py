@@ -11,5 +11,7 @@ class TransactionRecordViewSet(
     mixins.ListModelMixin,
     viewsets.GenericViewSet,
 ):
+    """ Views for TransactionRecord """
+
     queryset = TransactionRecord.objects.all()
     serializer_class = TransactionRecordSerializer

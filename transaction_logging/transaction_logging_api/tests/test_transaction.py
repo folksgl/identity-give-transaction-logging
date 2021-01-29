@@ -1,6 +1,5 @@
 """ CRUD tests for TransactionRecord """
 import string
-import uuid
 import random
 from django.urls import reverse
 from rest_framework.test import APITestCase
@@ -30,7 +29,6 @@ class TransactionRecordCRUDTest(APITestCase):
 
     def test_create_transaction_fail(self):
         url = reverse("transactionrecord-list")
-        record = generate_random_transaction_data()
         response = self.client.post(url, None)
         assert response.status_code == status.HTTP_400_BAD_REQUEST
 
@@ -45,10 +43,6 @@ class TransactionRecordCRUDTest(APITestCase):
         self.assertEqual(get_response.status_code, status.HTTP_200_OK)
 
     def test_read_transaction_fail(self):
-        url = reverse("transactionrecord-list")
-        record = generate_random_transaction_data()
-        response = self.client.post(url, record)
-
         url = reverse("transactionrecord-detail", args=["invalid"])
         get_response = self.client.get(url)
 
@@ -71,7 +65,6 @@ class TransactionRecordCRUDTest(APITestCase):
         url = reverse("transactionrecord-list")
         record = generate_random_transaction_data()
         response = self.client.post(url, record)
-        old_result = record["service_type"]
 
         new_result = "".join(random.choices(string.ascii_lowercase, k=10))
         record["service_type"] = new_result
