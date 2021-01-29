@@ -15,9 +15,10 @@ Run this script to download the code and set up the development environment with
 ```
 git clone https://github.com/18F/identity-give-transaction-logging
 cd identity-give-transaction-logging
-python3 -m venv venv
-source venv/bin/activate
-python3 -m pip install -r requirements.txt
+python3 -m venv .venv
+source .venv/bin/activate
+# .venv\Scripts\Activate.ps1 on Windows
+python3 -m pip install -r requirements.txt -r requirements-dev.txt
 pre-commit install
 ```
 
@@ -25,8 +26,19 @@ Run the application with:
 
 ```
 cd transaction_logging
-python manage.py runserver
+python manage.py migrate
+python manage.py collectstatic
+gunicorn -b 127.0.0.1:8080 transaction_logging.wsgi
 ```
+
+A windows alternative for gunicorn is `waitress`:
+
+``` 
+pip install waitress
+
+waitress-serve --port=8080 transaction_logging.wsgi:application
+```
+
 
 ### Available Endpoints
 

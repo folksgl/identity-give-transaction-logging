@@ -1,7 +1,5 @@
 django
 djangorestframework
-pre-commit
-pytest
 gunicorn
 cfenv
 psycopg2
