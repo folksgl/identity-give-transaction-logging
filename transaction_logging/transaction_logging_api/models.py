@@ -1,5 +1,6 @@
 """ Models for the Transaction Logging microservice """
 from django.db import models
+import uuid
 
 
 class ServiceType(models.TextChoices):
@@ -25,7 +26,7 @@ class TransactionRecord(models.Model):
     cost = models.DecimalField(decimal_places=3, max_digits=8)
     result = models.CharField(max_length=60)
 
-    record_uuid = models.UUIDField(primary_key=True)
+    record_uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     creation_date = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
 

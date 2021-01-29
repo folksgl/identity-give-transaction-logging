@@ -1,9 +1,17 @@
 """ Views for Transaction Logging API """
-from rest_framework import viewsets
+from rest_framework import viewsets, mixins
 from .serializers import TransactionRecordSerializer
 from .models import TransactionRecord
 
 
-class TransactionRecordViewSet(viewsets.ModelViewSet):
-    queryset = TransactionRecord.objects.all().order_by("record_uuid")
+class TransactionRecordViewSet(
+    mixins.CreateModelMixin,
+    mixins.RetrieveModelMixin,
+    mixins.UpdateModelMixin,
+    mixins.ListModelMixin,
+    viewsets.GenericViewSet,
+):
+    """ Views for TransactionRecord """
+
+    queryset = TransactionRecord.objects.all()
     serializer_class = TransactionRecordSerializer
