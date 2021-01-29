@@ -1,5 +1,5 @@
 """
-WSGI config for transaction_logging project.
+WSGI config for transaction_log project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
