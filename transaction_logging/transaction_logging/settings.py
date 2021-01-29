@@ -26,15 +26,11 @@ STATICFILES_DIRS = (os.path.join(PROJECT_DIR, "static"),)
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
+SECRET_KEY = os.environ["SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# Default to False unless environment variable is present
-_DJANGO_DEBUG_OPTION = False
-if "DJANGO_DEBUG" in os.environ:
-    _DJANGO_DEBUG_OPTION = os.environ["DJANGO_DEBUG"] == "True"
-
-DEBUG = _DJANGO_DEBUG_OPTION
+# Default to True if set
+DEBUG = os.environ.get("DEBUG", "False") == "True"
 
 ALLOWED_HOSTS = ["*"]
 

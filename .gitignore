@@ -3,3 +3,4 @@
 __pycache__
 static/
 /transaction_logging/db.sqlite3
+vars.yaml
