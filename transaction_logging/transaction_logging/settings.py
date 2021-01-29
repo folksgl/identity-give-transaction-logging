@@ -32,7 +32,7 @@ SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
 # Default to False unless environment variable is present
 _DJANGO_DEBUG_OPTION = False
 if "DJANGO_DEBUG" in os.environ:
-    _DJANGO_DEBUG_OPTION = os.environ["DJANGO_DEBUG"]
+    _DJANGO_DEBUG_OPTION = os.environ["DJANGO_DEBUG"] == "True"
 
 DEBUG = _DJANGO_DEBUG_OPTION
 
