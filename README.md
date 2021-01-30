@@ -1,3 +1,6 @@
+[![CircleCI](https://circleci.com/gh/18F/identity-give-transaction-logging.svg?style=shield)](https://circleci.com/gh/18F/identity-give-transaction-logging)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
 # Government Identity Verification Engine
 
 ## Transaction Logging Service
