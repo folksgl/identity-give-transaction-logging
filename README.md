@@ -25,6 +25,26 @@ python -m pip install -r requirements-dev.txt
 pre-commit install
 ```
 
+### Required environment variables
+The Django settings.py file for this project requires setting an environment variable: "SECRET_KEY"
+Running the following in your shell should print a secret key that can be used.
+```shell
+python3.9
+import secrets
+print(secrets.token_urlsafe())
+exit()
+
+```
+
+Set the environment variable using *the entire output* (including quotes) from the printed secret
+```shell
+# BASH-like shells
+export SECRET_KEY=<your-secret-here>
+
+# Powershell
+Env:SECRET_KEY=<your-secret-here>
+```
+
 Run the application with:
 
 ```shell
