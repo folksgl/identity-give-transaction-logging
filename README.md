@@ -41,11 +41,11 @@ Set the environment variable using *the entire output* (including quotes) from t
 ```shell
 # BASH-like shells
 export SECRET_KEY=<your-secret-here>
-
-# Powershell
+```
+```powershell
+# PowerShell
 Env:SECRET_KEY=<your-secret-here>
 ```
-
 Note: during development, it may also be helpful to add the `DEBUG` environment variable and setting it to the string `True`
 
 ### Running the application
