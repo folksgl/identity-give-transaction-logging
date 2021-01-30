@@ -1,5 +1,5 @@
 """
-WSGI config for transaction_logging project.
+WSGI config for transaction_log project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "transaction_logging.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "transaction_log.settings")
 
 application = get_wsgi_application()
