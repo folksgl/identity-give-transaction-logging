@@ -13,6 +13,7 @@ The Transaction Logging Service is a component of GIVE that provides logging for
 
 ## Building Locally
 
+### Development setup
 Run this script to download the code and set up the development environment with python virtual env. The pre-commit hook provides code formatting using [Black](https://black.readthedocs.io/en/stable/)
 
 ```shell
@@ -47,7 +48,8 @@ Env:SECRET_KEY=<your-secret-here>
 
 Note: during development, it may also be helpful to add the `DEBUG` environment variable and setting it to the string `True`
 
-Run the application with:
+### Running the application
+After completing [development setup](#development-setup) and [environment variable setup](#required-environment-variables) you can run the application with:
 
 ```shell
 python manage.py migrate
