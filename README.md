@@ -18,10 +18,10 @@ Run this script to download the code and set up the development environment with
 ```
 git clone https://github.com/18F/identity-give-transaction-logging
 cd identity-give-transaction-logging
-python3 -m venv .venv
+python3.9 -m venv .venv
 source .venv/bin/activate
 # .venv\Scripts\Activate.ps1 on Windows
-python3 -m pip install -r requirements.txt -r requirements-dev.txt
+python -m pip install -r requirements-dev.txt
 pre-commit install
 ```
 
