@@ -13,7 +13,7 @@ The Transaction Logging Service is a component of GIVE that provides logging for
 
 ## Building Locally
 
-Run this script to download the code and set up the development environment with python virtual env. The pre-commit hook provides code formatting using [black](https://black.readthedocs.io/en/stable/)
+Run this script to download the code and set up the development environment with python virtual env. The pre-commit hook provides code formatting using [Black](https://black.readthedocs.io/en/stable/)
 
 ```
 git clone https://github.com/18F/identity-give-transaction-logging
