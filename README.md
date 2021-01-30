@@ -25,10 +25,9 @@ pre-commit install
 Run the application with:
 
 ```
-cd transaction_logging
 python manage.py migrate
 python manage.py collectstatic
-gunicorn -b 127.0.0.1:8080 transaction_logging.wsgi
+gunicorn -b 127.0.0.1:8080 transaction_log.wsgi
 ```
 
 A windows alternative for gunicorn is `waitress`:
@@ -36,7 +35,7 @@ A windows alternative for gunicorn is `waitress`:
 ``` 
 pip install waitress
 
-waitress-serve --port=8080 transaction_logging.wsgi:application
+waitress-serve --port=8080 transaction_log.wsgi:application
 ```
 
 
