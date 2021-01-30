@@ -32,7 +32,7 @@ Running the following in your shell should print a secret key that can be used.
 ```shell
 python3.9
 import secrets
-print(secrets.token_urlsafe())
+secrets.token_urlsafe()
 exit()
 
 ```
