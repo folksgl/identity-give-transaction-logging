@@ -30,7 +30,7 @@ pre-commit install
 The Django settings.py file for this project requires setting an environment variable: `SECRET_KEY`
 Running the following in your shell should print a secret key that can be used.
 ```shell
-python3.9
+python
 import secrets
 secrets.token_urlsafe()
 exit()
