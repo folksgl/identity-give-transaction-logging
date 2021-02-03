@@ -1,4 +1,5 @@
 [![CircleCI](https://circleci.com/gh/18F/identity-give-transaction-logging.svg?style=shield)](https://circleci.com/gh/18F/identity-give-transaction-logging)
+[![Maintainability](https://api.codeclimate.com/v1/badges/f9b10f2d60f8e8baef84/maintainability)](https://codeclimate.com/github/18F/identity-give-transaction-logging/maintainability)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 # Government Identity Verification Engine
@@ -25,6 +26,8 @@ source .venv/bin/activate
 python -m pip install -r requirements-dev.txt
 pre-commit install
 ```
+
+:warning: **If you are not able to install `psycopg2`**, please make sure you have `libpq-dev` installed on your system. For apt, use the following `sudo apt install -y libpq-dev`
 
 ### Required environment variables
 The Django settings.py file for this project requires setting an environment variable: `SECRET_KEY`
