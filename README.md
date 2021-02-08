@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/18F/identity-give-transaction-logging.svg?style=shield)](https://circleci.com/gh/18F/identity-give-transaction-logging)
+![Tests](https://github.com/18F/identity-give-transaction-logging/workflows/Unit-Tests/badge.svg)
 [![Maintainability](https://api.codeclimate.com/v1/badges/f9b10f2d60f8e8baef84/maintainability)](https://codeclimate.com/github/18F/identity-give-transaction-logging/maintainability)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
