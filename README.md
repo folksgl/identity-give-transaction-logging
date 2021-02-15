@@ -1,6 +1,6 @@
 ![Tests](https://github.com/18F/identity-give-transaction-logging/workflows/Unit-Tests/badge.svg)
 [![Maintainability](https://api.codeclimate.com/v1/badges/f9b10f2d60f8e8baef84/maintainability)](https://codeclimate.com/github/18F/identity-give-transaction-logging/maintainability)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+![Black](https://github.com/18F/identity-give-transaction-logging/workflows/Black/badge.svg)
 
 # Government Identity Verification Engine
 
@@ -8,21 +8,24 @@
 
 The Transaction Logging Service is a component of GIVE that provides logging for Verification Events.
 
-## Pre-requisites
+## Building Locally
+
+### Pre-requisites
+Make sure you have the following installed if you intend to build the project locally.
 - [Python 3.9](https://www.python.org/)
 - [CloudFoundry CLI](https://docs.cloudfoundry.org/cf-cli/)
 
-## Building Locally
-
 ### Development setup
-Run this script to download the code and set up the development environment with python virtual env. The pre-commit hook provides code formatting using [Black](https://black.readthedocs.io/en/stable/)
-
+To set up your environment, run the following commands (or the equivalent commands if not using a bash-like terminal):
 ```shell
+# Clone the project
 git clone https://github.com/18F/identity-give-transaction-logging
 cd identity-give-transaction-logging
+# Set up Python virtual environment
 python3.9 -m venv .venv
 source .venv/bin/activate
 # .venv\Scripts\Activate.ps1 on Windows
+# Install dependencies and pre-commit hooks
 python -m pip install -r requirements-dev.txt
 pre-commit install
 ```
