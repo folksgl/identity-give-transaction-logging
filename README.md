@@ -8,6 +8,9 @@
 
 The Transaction Logging Service is a component of GIVE that provides logging for Verification Events.
 
+## CI/CD Workflows with GitHub Actions
+The most up-to-date information about the CI/CD flows for this repo can be found in the [GitHub workflows directory](https://github.com/18F/identity-give-ipp-idemia/tree/main/.github/workflows)
+
 ## Building Locally
 
 ### Pre-requisites
@@ -71,6 +74,22 @@ pip install waitress
 waitress-serve --port=8080 transaction_log.wsgi:application
 ```
 
+### Deploying to Cloud.gov during development
+All deployments require having the correct Cloud.gov credentials in place. If you haven't already, visit [Cloud.gov](https://cloud.gov) and set up your account and CLI.
+
+*manifest.yml* file contains the deployment configuration for cloud.gov, and expects a vars.yaml file that includes runtime variables referenced. For info, see [cloud foundry manifest files reference](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest-attributes.html)
+
+The application database must be deployed prior to the application, and can be deployed with the following commands:
+```shell
+cf create-service aws-rds <plan> transaction-log-db
+```
+
+*You must wait* until the database has completed provisioning to continue with the deployment. Wait for the `status` field of `cf service ipp-idemia-db` to change from `create in progress` to `create succeeded`.
+```shell
+watch -n 15 cf service ipp-idemia-db
+```
+
+After the database has come up, running `cf push --vars-file vars.yaml --var SECRET_KEY=$SECRET_KEY`.
 
 ### Available Endpoints
 
