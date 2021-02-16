@@ -9,7 +9,7 @@
 The Transaction Logging Service is a component of GIVE that provides logging for Verification Events.
 
 ## CI/CD Workflows with GitHub Actions
-The most up-to-date information about the CI/CD flows for this repo can be found in the [GitHub workflows directory](https://github.com/18F/identity-give-ipp-idemia/tree/main/.github/workflows)
+The most up-to-date information about the CI/CD flows for this repo can be found in the [GitHub workflows directory](https://github.com/18F/identity-give-transaction-logging/tree/main/.github/workflows)
 
 ## Building Locally
 
@@ -84,9 +84,9 @@ The application database must be deployed prior to the application, and can be d
 cf create-service aws-rds <plan> transaction-log-db
 ```
 
-*You must wait* until the database has completed provisioning to continue with the deployment. Wait for the `status` field of `cf service ipp-idemia-db` to change from `create in progress` to `create succeeded`.
+*You must wait* until the database has completed provisioning to continue with the deployment. Wait for the `status` field of `cf service transaction-log-db` to change from `create in progress` to `create succeeded`.
 ```shell
-watch -n 15 cf service ipp-idemia-db
+watch -n 15 cf service transaction-log-db
 ```
 
 After the database has come up, running `cf push --vars-file vars.yaml --var SECRET_KEY=$SECRET_KEY`.
