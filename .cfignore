@@ -1,0 +1,4 @@
+static/
+transaction_log/static
+db.sqlite3
+.venv/
