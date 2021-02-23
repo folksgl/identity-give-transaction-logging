@@ -1,15 +1,15 @@
 ---
 version: 1
 applications:
-- name: transaction-log
-  routes:
-    - route: identity-give-transaction-log.app.cloud.gov
-  instances: ((instances))
-  memory: ((memory))
-  services:
-    - transaction-log-db
-  buildpacks:
-    - python_buildpack
-  env:
-    SECRET_KEY: ((SECRET_KEY))
-    DISABLE_COLLECTSTATIC: 1
+  - name: transaction-log
+    routes:
+      - route: identity-give-transaction-log.app.cloud.gov
+    instances: ((instances))
+    memory: ((memory))
+    services:
+      - transaction-log-db
+    buildpacks:
+      - python_buildpack
+    env:
+      SECRET_KEY: ((SECRET_KEY))
+      DISABLE_COLLECTSTATIC: 1
