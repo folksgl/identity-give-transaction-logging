@@ -3,7 +3,7 @@ version: 1
 applications:
   - name: transaction-log
     routes:
-      - route: identity-give-transaction-log.app.cloud.gov
+      - route: identity-give-transaction-log.apps.internal
     instances: ((instances))
     memory: ((memory))
     services:
