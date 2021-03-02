@@ -28,4 +28,4 @@ jobs:
       - name: Scan
         run: |
           pip install -r requirements-dev.txt
-          bandit --exclude ./.venv/ -r .
+          bandit --exclude ./.venv/,./api/tests/ -r .
