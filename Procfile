@@ -1,1 +1,1 @@
-web: python migrations.py && gunicorn idemia.wsgi --log-file -
+web: python migrations.py && gunicorn transaction_log.wsgi --log-file -
