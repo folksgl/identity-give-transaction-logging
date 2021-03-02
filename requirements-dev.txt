@@ -4,3 +4,4 @@ pytest
 pylint
 black
 django-extensions
+bandit
