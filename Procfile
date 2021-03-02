@@ -1,1 +1,1 @@
-web: python manage.py migrate && gunicorn transaction_log.wsgi --log-file -
+web: python migrations.py && gunicorn transaction_log.wsgi --log-file -
