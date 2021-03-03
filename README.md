@@ -1,13 +1,20 @@
 ![Tests](https://github.com/18F/identity-give-transaction-logging/workflows/Unit-Tests/badge.svg)
 [![Maintainability](https://api.codeclimate.com/v1/badges/f9b10f2d60f8e8baef84/maintainability)](https://codeclimate.com/github/18F/identity-give-transaction-logging/maintainability)
 ![Black](https://github.com/18F/identity-give-transaction-logging/workflows/Black/badge.svg)
+![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)
 
-# Government Identity Verification Engine
-
-## Transaction Logging Service
-
+# GIVE Transaction Logging Microservice
 The Transaction Logging Service is a component of GIVE that provides logging
 for Verification Events.
+
+## Why this project
+The GIVE Transaction Logging microservice aims to provide an audit trail for
+transactions that occur within the GIVE system. By allowing other GIVE
+microservices to log their transaction records to a centralized service, GIVE
+can track anonymized records and usage across the system. The Transaction
+Logging microservice has the following goals:
+* Provide auditing capabilites for the GIVE system
+* Expose usage and reporting data
 
 ## CI/CD Workflows with GitHub Actions
 The most up-to-date information about the CI/CD flows for this repo can be
@@ -114,3 +121,16 @@ After the database has come up, running
 ### Available Endpoints
 
 `/transaction`
+
+## Public domain
+
+This project is in the worldwide [public domain](LICENSE.md). As stated in
+[CONTRIBUTING](CONTRIBUTING.md):
+
+> This project is in the public domain within the United States, and copyright
+and related rights in the work worldwide are waived through the
+[CC0 1.0 Universal public domain dedication](https://creativecommons.org/publicdomain/zero/1.0/).
+>
+> All contributions to this project will be released under the CC0 dedication.
+By submitting a pull request, you are agreeing to comply with this waiver of
+copyright interest.
