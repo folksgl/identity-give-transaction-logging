@@ -10,7 +10,7 @@ on:
     paths:
       - '**.py'  # All markdown files in the repository
   pull_request:
-    paths-ignore:
+    paths:
       - '**.py'
 
 jobs:
