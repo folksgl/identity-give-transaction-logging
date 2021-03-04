@@ -8,10 +8,10 @@ on:
     branches:
       - main
     paths-ignore:
-      '**.md'  # All .md files in repository
+      - '**.md'  # All .md files in repository
   pull_request:
     paths-ignore:
-      '**.md'  # All .md files in repository
+      - '**.md'  # All .md files in repository
 
 jobs:
   bandit:
