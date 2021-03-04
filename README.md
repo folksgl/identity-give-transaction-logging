@@ -7,6 +7,8 @@
 ![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)
 
 # GIVE Transaction Logging Microservice
+
+
 The Transaction Logging Service is a component of GIVE that provides logging
 for Verification Events.
 
