@@ -1,4 +1,4 @@
-![Tests](https://github.com/18F/identity-give-transaction-logging/workflows/Unit-Tests/badge.svg)
+ ![Tests](https://github.com/18F/identity-give-transaction-logging/workflows/Unit-Tests/badge.svg)
 
 
 
