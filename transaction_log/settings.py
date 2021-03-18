@@ -124,7 +124,8 @@ else:
         "USER": "postgres",
         "PASSWORD": "postgres",
         "HOST": "127.0.0.1",
-        "PORT": "5432",
+        # NOTE - Custom port to facilitate local testing alongside other local postgres instances
+        "PORT": "5431",
     }
 
 DATABASES = {"default": DB_DICT}
