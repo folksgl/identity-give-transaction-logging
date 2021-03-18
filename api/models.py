@@ -1,6 +1,6 @@
 """ Models for the Transaction Logging microservice """
-from django.db import models
 import uuid
+from django.db import models
 
 
 class ServiceType(models.TextChoices):
