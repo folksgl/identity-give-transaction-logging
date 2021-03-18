@@ -14,7 +14,7 @@ def generate_random_transaction_data() -> dict:
         "provider": random.choice(["idemia", "usps"]),
         "csp": "login.gov",
         "cost": random.randrange(0, 200) / 100,
-        "result": random.choice(["fail", "pass"]),
+        "result": random.choice([True, False]),
     }
 
 
@@ -53,7 +53,7 @@ class TransactionRecordCRUDTest(APITestCase):
         record = generate_random_transaction_data()
         response = self.client.post(url, record)
 
-        new_result = "".join(random.choices(string.ascii_lowercase, k=10))
+        new_result = random.choice([True, False])
         record["result"] = new_result
         url = reverse("transactionrecord-detail", args=[response.json()["record_uuid"]])
         put_response = self.client.put(url, record)
