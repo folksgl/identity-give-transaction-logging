@@ -49,6 +49,5 @@ jobs:
           # For unit tests, secret_key just needs to be populated.
           # It will only ever access a temporary Django test database.
           SECRET_KEY: unit-test-fake-secret-key-#5TY90
-          POSTGRES_HOST: postgres
         run: |
           python manage.py test --debug-mode
