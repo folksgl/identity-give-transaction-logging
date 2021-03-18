@@ -43,11 +43,3 @@ class TransactionRecord(models.Model):
         """ TransactionRecord Django Metadata """
 
         ordering = ["creation_date"]
-
-    @property
-    def uuid(self):
-        """ Allow reading string representations of the uuid """
-        return str(self.record_uuid)
-
-    def __str__(self):
-        return f"{self.record_uuid}: {self.result}"
