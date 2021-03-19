@@ -28,7 +28,7 @@ class TransactionRecord(models.Model):
     csp = models.CharField(max_length=60)
 
     # The result of the transaction. True=Match, False=NoMatch, Null/None=Unknown/N/A
-    result = models.BooleanField(null=True)
+    result = models.BooleanField(null=True, blank=True, default=None)
 
     # The unique identifier for this record. Services that need to look up
     # and modify existing records with additional data should store this
