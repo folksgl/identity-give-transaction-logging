@@ -1,6 +1,6 @@
 """ Models for the Transaction Logging microservice """
-from django.db import models
 import uuid
+from django.db import models
 
 
 class ServiceType(models.TextChoices):
@@ -27,8 +27,8 @@ class TransactionRecord(models.Model):
     # The CSP that sent the request. e.g. login.gov
     csp = models.CharField(max_length=60)
 
-    # The result of the transaction. e.g. match, no match, unknown
-    result = models.CharField(max_length=60)
+    # The result of the transaction. True=Match, False=NoMatch, Null/None=Unknown/N/A
+    result = models.BooleanField(null=True, blank=True, default=None)
 
     # The unique identifier for this record. Services that need to look up
     # and modify existing records with additional data should store this
@@ -43,11 +43,3 @@ class TransactionRecord(models.Model):
         """ TransactionRecord Django Metadata """
 
         ordering = ["creation_date"]
-
-    @property
-    def uuid(self):
-        """ Allow reading string representations of the uuid """
-        return str(self.record_uuid)
-
-    def __str__(self):
-        return f"{self.record_uuid}: {self.result}"
