@@ -2,9 +2,9 @@
 import string
 import random
 from django.urls import reverse
-from rest_framework.test import APITestCase
+from django.test import TestCase, Client
 from rest_framework import status
-from ..models import ServiceType
+from api.models import ServiceType
 
 
 def generate_random_transaction_data() -> dict:
@@ -18,14 +18,15 @@ def generate_random_transaction_data() -> dict:
     }
 
 
-def post_record_to_view(view_name, client):
+def post_record_to_view(view_name, client, transaction_record=None):
     """ POST to the url with a randomly generated record """
     url = reverse(view_name)
-    record = generate_random_transaction_data()
-    return client.post(url, record)
+    if transaction_record is None:
+        transaction_record = generate_random_transaction_data()
+    return client.post(url, transaction_record, content_type="application/json")
 
 
-class TransactionRecordCRUDTest(APITestCase):
+class TransactionRecordCRUDTest(TestCase):
     """ Test crud operations on TransactionRecord objects """
 
     def test_create_transaction_succeed(self):
@@ -36,7 +37,7 @@ class TransactionRecordCRUDTest(APITestCase):
     def test_create_transaction_fail(self):
         """ Test that bad request bodies are rejected """
         url = reverse("transactionrecord-list")
-        response = self.client.post(url, None)
+        response = self.client.post(url, None, content_type="application/json")
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_read_transaction_succeed(self):
@@ -66,12 +67,15 @@ class TransactionRecordCRUDTest(APITestCase):
         # Update the record result
         new_result = random.choice([True, False])
         url = reverse("transactionrecord-detail", args=[response.json()["record_uuid"]])
-        patch_response = self.client.patch(url, data={"result": new_result})
+        patch_response = self.client.patch(
+            url, data={"result": new_result}, content_type="application/json"
+        )
 
         self.assertEqual(patch_response.status_code, status.HTTP_200_OK)
         self.assertEqual(patch_response.json()["result"], new_result)
 
     def test_update_transaction_fail(self):
+        """ Test that malformed updates to a record are not allowed """
         # Generate a record
         response = post_record_to_view("transactionrecord-list", self.client)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
@@ -79,7 +83,11 @@ class TransactionRecordCRUDTest(APITestCase):
         # Attempt incorrect modification of the record
         new_service_type = "".join(random.choices(string.ascii_lowercase, k=10))
         url = reverse("transactionrecord-detail", args=[response.json()["record_uuid"]])
-        patch_response = self.client.put(url, data={"service_type": new_service_type})
+        patch_response = self.client.patch(
+            url,
+            data={"service_type": new_service_type},
+            content_type="application/json",
+        )
 
         self.assertEqual(patch_response.status_code, status.HTTP_400_BAD_REQUEST)
 
@@ -91,5 +99,60 @@ class TransactionRecordCRUDTest(APITestCase):
 
         url = reverse("transactionrecord-detail", args=[response.json()["record_uuid"]])
         get_response = self.client.delete(url)
-
         self.assertEqual(get_response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+
+    def test_create_no_result(self):
+        """ Test that the value of 'result' is not True or False when omitted """
+        record = generate_random_transaction_data()
+        record["result"] = ""
+        response = post_record_to_view("transactionrecord-list", self.client, record)
+        self.assertNotEqual(response.json()["result"], True)
+        self.assertNotEqual(response.json()["result"], False)
+
+    def test_modify_no_result_to_true(self):
+        """ Test that updates to a record with result=None works as expected """
+        record = generate_random_transaction_data()
+        record["result"] = ""
+        response = post_record_to_view("transactionrecord-list", self.client, record)
+
+        url = reverse("transactionrecord-detail", args=[response.json()["record_uuid"]])
+        patch_response = self.client.patch(
+            url, data={"result": True}, content_type="application/json"
+        )
+        self.assertEqual(patch_response.status_code, status.HTTP_200_OK)
+
+    def test_result_default_value_empty_string(self):
+        """ Test that None/Null is the default value for 'result' """
+        record = generate_random_transaction_data()
+        record["result"] = ""
+        response = post_record_to_view("transactionrecord-list", self.client, record)
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertIsNone(response.json()["result"])
+
+    def test_result_default_value_when_explicit(self):
+        record = generate_random_transaction_data()
+        record["result"] = None
+        response = post_record_to_view("transactionrecord-list", self.client, record)
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertIsNone(response.json()["result"])
+
+    def test_result_default_value_when_omitted(self):
+        record = generate_random_transaction_data()
+        del record["result"]
+        response = post_record_to_view("transactionrecord-list", self.client, record)
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertIsNone(response.json()["result"])
+
+    def test_no_create_record_with_wrong_mediatype(self):
+        record = generate_random_transaction_data()
+        url = reverse("transactionrecord-list")
+
+        # Explicitly try to use something other than "application/json"
+        response = self.client.post(
+            url, data=record, content_type="multipart/form-data"
+        )
+
+        self.assertNotEqual(response.status_code, status.HTTP_201_CREATED)
