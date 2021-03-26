@@ -17,9 +17,9 @@ find security issues very early on in the development process. See
 
 ## Deploy
 Deploys the project to the correct GIVE environment within Cloud.gov. The
-deploy-dev workflow will only run if the unit-tests workflow completes
-successfully and will only be triggered in the 18F repository. This will
-prevent forks from needlessly running workflows that will always fail
+deploy-dev workflow will only run unit-tests and only deploy if those test are
+successfull. Deployment will also only be triggered in the 18F repository. This
+will prevent forks from needlessly running workflows that will always fail
 (forks won't be able to authenticate into the dev environment).
 
 ## Stale Items
