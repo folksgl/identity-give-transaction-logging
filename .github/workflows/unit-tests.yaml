@@ -1,16 +1,10 @@
 ---
-# This workflow will install Python dependencies and run tests
+# This workflow will install Python dependencies and run tests so that
+# unit tests can be run against pull requests.
 
 name: Unit-Tests
 
 on:
-  push:
-    branches:
-      - main
-    tags:
-      - '*'
-    paths-ignore:
-      - '**.md'  # All markdown files in the repository
   pull_request:
     paths-ignore:
       - '**.md'
@@ -51,5 +45,4 @@ jobs:
           # For unit tests, secret_key just needs to be populated.
           # It will only ever access a temporary Django test database.
           SECRET_KEY: unit-test-fake-secret-key-#5TY90
-        run: |
-          python manage.py test --debug-mode
+        run: python manage.py test --debug-mode

@@ -3,9 +3,9 @@ version: 1
 applications:
   - name: transaction-log
     routes:
-      - route: ((route))
-    instances: ((instances))
-    memory: ((memory))
+      - route: ((ROUTE))
+    instances: ((INSTANCES))
+    memory: ((MEMORY))
     services:
       # DB name convention is <app-name>-db
       - transaction-log-db
