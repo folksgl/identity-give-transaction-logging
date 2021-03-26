@@ -1,16 +1,10 @@
 ---
-# This workflow will install Python dependencies and run tests
+# This workflow will install Python dependencies and run tests so that
+# unit tests can be run against pull requests.
 
 name: Unit-Tests
 
 on:
-  push:
-    branches:
-      - main
-    tags:
-      - '*'
-    paths-ignore:
-      - '**.md'  # All markdown files in the repository
   pull_request:
     paths-ignore:
       - '**.md'

@@ -29,4 +29,6 @@ marked stale for 5 days, the workflow will close the item.
 
 ## Unit Tests
 The unit-tests workflow will install the project runtime dependencies and run
-the unit test suite against the code.
+the unit test suite against the code. This workflow is used to run unit tests
+for the application against pull requests before merging takes place. Additional
+unit testing will take place on merging.
