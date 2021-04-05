@@ -18,4 +18,4 @@ class TransactionRecordViewSet(
     parser_classes = [JSONParser]
 
     async def __call__(self):
-        super(self)
+        pass
