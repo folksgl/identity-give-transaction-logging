@@ -9,7 +9,6 @@ class TransactionRecordViewSet(
     mixins.CreateModelMixin,
     mixins.RetrieveModelMixin,
     mixins.UpdateModelMixin,
-    mixins.ListModelMixin,
     viewsets.GenericViewSet,
 ):
     """ Views for TransactionRecord """
@@ -17,3 +16,6 @@ class TransactionRecordViewSet(
     queryset = TransactionRecord.objects.all()
     serializer_class = TransactionRecordSerializer
     parser_classes = [JSONParser]
+
+    async def __call__(self):
+        pass
