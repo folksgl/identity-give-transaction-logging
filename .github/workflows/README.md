@@ -1,11 +1,15 @@
 # GitHub Actions CI/CD workflows
 
-## Bandit
-The Bandit workflow will run the Bandit security linter tool against this 
+## Python Checks
+The Python-Checks workflow will run a series of checks on the python code
+in this repository.
+
+### Bandit
+The Bandit job will run the Bandit security linter tool against this 
 project. A failed run indicates that Bandit found at least one vulnerability.
 
-## Black
-The workflow outlined in `black.yml` checks to ensure that the Python style
+### Black
+The Black job checks to ensure that the Python style
 for this project is consistent and fully implemented in all Python files.
 For more information about this workflow, see
 https://black.readthedocs.io/en/stable/github_actions.html
