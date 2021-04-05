@@ -7,7 +7,7 @@ fi
 
 db_name=$1
 
-# Waits for the transaction db status to become "create succeeded"
+# Waits for the transaction db status to become create/update succeeded
 wait_for_db_creation() {
     time_limit=600 # 10 minutes
 
@@ -15,7 +15,7 @@ wait_for_db_creation() {
         echo "Waiting for service to become available. Seconds before timeout: $time_limit"
         sleep 30
         time_limit=$((time_limit - 30))
-        service_status=$(cf service $db_name | grep "status:" | grep "create succeeded")
+        service_status=$(cf service $db_name | grep "status:" | grep "create succeeded\|update succeeded")
     done
 
     # If the service still isn't available, fail the script
@@ -46,7 +46,7 @@ else
 
     db_status=$(cf service $db_name | grep "status:")
 
-    db_succeeded=$(echo $db_status | grep "create succeeded")
+    db_succeeded=$(echo $db_status | grep "create succeeded\|update succeeded")
     db_in_progress=$(echo $db_status | grep "in progress")
 
     if [ ! -z "$db_succeeded" ]; then
@@ -55,7 +55,7 @@ else
         echo "DB creation was "in progress"."
         wait_for_db_creation
     else
-        # Status was neither "in progress" or "create succeeded". There's likely
+        # Status was neither "in progress" or "create|update succeeded". There's likely
         # a problem with the DB service that can't be resolved without human interaction
         echo "Found DB service: $db_name but status was: $db_status"
         exit 1
