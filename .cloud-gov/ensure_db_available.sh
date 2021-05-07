@@ -15,19 +15,21 @@ cf_service_name=$1
 cf_service=$2
 cf_service_plan=$3
 
+success_status_regex="(create|update) succeeded"
+
 # Waits for the cf service status to become create/update succeeded
 wait_for_service_creation() {
     time_limit=600 # 10 minutes
 
-    while [ $time_limit -ne 0 ] && [ -z "$service_status" ]; do
+    while [ $time_limit -ne 0 ] && [[ ! "$service_status" =~ $success_status_regex ]]; do
         echo "Waiting for service to become available. Seconds before timeout: $time_limit"
         sleep 30
         time_limit=$((time_limit - 30))
-        service_status=$(cf service "$cf_service_name" | grep "status:" | grep "create succeeded\|update succeeded")
+        service_status=$(cf service "$cf_service_name" | grep "status:")
     done
 
     # If the service still isn't available, fail the script
-    if [ -z "$service_status" ]; then
+    if [[ ! "$service_status" =~ $success_status_regex ]]; then
         echo "Service failed to become ready within the time limit."
         exit 1
     fi
@@ -52,9 +54,8 @@ fi
 echo "Found service $cf_service_name. Checking service status..."
 
 cf_service_status=$(cf service "$cf_service_name" | grep "status:")
-success_regex="(create|update) succeeded"
 
-if [[ "$cf_service_status" =~ $success_regex ]]; then
+if [[ "$cf_service_status" =~ $success_status_regex ]]; then
     echo "Service $cf_service_name already available"
 elif [[ "$cf_service_status" == *"in progress"* ]]; then
     echo "$cf_service_name creation was 'in progress'."
