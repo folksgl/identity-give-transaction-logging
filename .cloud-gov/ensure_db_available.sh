@@ -1,11 +1,19 @@
 #!/bin/bash
 
 if [ -z "$1" ]; then
-    echo "Usage: $0 CF_SERVICE_NAME"
+    echo "Usage: $0 CF_SERVICE_NAME SERVICE PLAN
+
+Examples:
+  ensure_service_available my-app-db aws-rds micro-psql
+
+NOTE - this script will only create services if they do not exist.
+       It will NOT update services to match the provided plan type."
     exit 1
 fi
 
 cf_service_name=$1
+cf_service=$2
+cf_service_plan=$3
 
 # Waits for the cf service status to become create/update succeeded
 wait_for_service_creation() {
@@ -20,40 +28,40 @@ wait_for_service_creation() {
 
     # If the service still isn't available, fail the script
     if [ -z "$service_status" ]; then
-        echo "DB failed to become ready within the time limit."
+        echo "Service failed to become ready within the time limit."
         exit 1
     fi
 
-    echo "DB creation finalized"
+    echo "Service creation finalized"
 }
 
-create_db() {
-    service_plan="micro-psql"
-    cf create-service aws-rds $service_plan "$cf_service_name"
+create_service() {
+    # Documentation: https://cli.cloudfoundry.org/en-US/v7/create-service.html
+    cf create-service "$cf_service" "$cf_service_plan" "$cf_service_name"
 }
 
 # Test if cf service exists at all
 if ! cf services | grep --silent "^$cf_service_name "; then
-    echo "Unable to find database service: $cf_service_name. Creating..."
-    create_db
+    echo "Unable to find service: $cf_service_name. Creating..."
+    create_service
     wait_for_service_creation
     exit 0
 fi
 
-# The DB service existed, but the service status is not yet known
+# The service existed, but the service status is not yet known
 echo "Found service $cf_service_name. Checking service status..."
 
-db_status=$(cf service "$cf_service_name" | grep "status:")
+cf_service_status=$(cf service "$cf_service_name" | grep "status:")
 success_regex="(create|update) succeeded"
 
-if [[ "$db_status" =~ $success_regex ]]; then
-    echo "DB already available"
-elif [[ "$db_status" == *"in progress"* ]]; then
-    echo "DB creation was "in progress"."
+if [[ "$cf_service_status" =~ $success_regex ]]; then
+    echo "Service $cf_service_name already available"
+elif [[ "$cf_service_status" == *"in progress"* ]]; then
+    echo "$cf_service_name creation was 'in progress'."
     wait_for_service_creation
 else
     # Status was neither "in progress" or "create|update succeeded". There's likely
-    # a problem with the DB service that can't be resolved without human interaction
-    echo "Found DB service: $cf_service_name but status was: $db_status"
+    # a problem with the service that can't be resolved without human interaction
+    echo "Found cf service: $cf_service_name but status was: $cf_service_status"
     exit 1
 fi
