@@ -28,7 +28,7 @@ wait_for_service_creation() {
         service_status=$(cf service "$cf_service_name" | grep "status:")
     done
 
-    # If the service still isn't available, fail the script
+    # Check for timeout
     if [[ ! "$service_status" =~ $success_status_regex ]]; then
         echo "Service failed to become ready within the time limit."
         exit 1
