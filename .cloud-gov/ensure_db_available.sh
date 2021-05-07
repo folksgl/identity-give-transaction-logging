@@ -32,7 +32,7 @@ create_db() {
     cf create-service aws-rds $service_plan "$cf_service_name"
 }
 
-# Test if DB service exists at all
+# Test if cf service exists at all
 if ! cf services | grep --silent "^$cf_service_name "; then
     echo "Unable to find database service: $cf_service_name. Creating..."
     create_db
@@ -44,13 +44,11 @@ fi
 echo "Found service $cf_service_name. Checking service status..."
 
 db_status=$(cf service "$cf_service_name" | grep "status:")
+success_regex="(create|update) succeeded"
 
-db_succeeded=$(echo "$db_status" | grep "create succeeded\|update succeeded")
-db_in_progress=$(echo "$db_status" | grep "in progress")
-
-if [ -n "$db_succeeded" ]; then
+if [[ "$db_status" =~ $success_regex ]]; then
     echo "DB already available"
-elif [ -n "$db_in_progress" ]; then
+elif [[ "$db_status" == *"in progress"* ]]; then
     echo "DB creation was "in progress"."
     wait_for_service_creation
 else
