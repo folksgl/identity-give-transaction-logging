@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -z "$1" ]; then
+if [ "$#" -ne 3 ]; then
     echo "Usage: $0 CF_SERVICE_NAME SERVICE PLAN
 
 Examples:
