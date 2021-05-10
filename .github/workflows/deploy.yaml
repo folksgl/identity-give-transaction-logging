@@ -96,7 +96,7 @@ jobs:
         run: cf target -o ${{ secrets.CF_ORG }} -s ${{ steps.deployment-target.outputs.SPACE }}
 
       - name: Ensure DB Available
-        run: .cloud-gov/ensure_db_available.sh transaction-log-db
+        run: .cloud-gov/ensure_db_available.sh transaction-log-db aws-rds medium-psql
 
       - name: Deploy Application
         run: cf push --vars-file vars.yaml
